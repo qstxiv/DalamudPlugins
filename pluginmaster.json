@@ -1,18 +1,1 @@
-[
-    {
-        "Author": "test",
-        "Name": "Test123Plugin",
-        "Punchline": "Test test",
-        "Description": "testing",
-        "InternalName": "Test123Plugin",
-        "RepoUrl": "https://github.com/WigglyMuffin/Test123Plugin",
-        "AssemblyVersion": "0.0.0.0",
-        "ApplicableVersion": "any",
-        "DalamudApiLevel": 11,
-        "IconUrl": "",
-        "DownloadLinkInstall": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Test123Plugin/latest.zip",
-        "DownloadLinkUpdate": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Test123Plugin/latest.zip",
-        "DownloadCount": 0,
-        "LastUpdate": "1748260188"
-    }
-]
+[]
