@@ -15,7 +15,9 @@ jobs:
         with:
           python-version: "3.8"
       - name: Generate PluginMaster
-        run: python generate_pluginmaster.py
+        run: |
+          pip install -r requirements.txt
+          python generate_pluginmaster.py
       - uses: EndBug/add-and-commit@v9
         with:
           author_name: GitHub Action
