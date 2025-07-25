@@ -20,12 +20,6 @@ GLOBAL_DOWNLOAD_URL = "https://github.com/WigglyMuffin/DalamudPlugins/raw/{branc
 #   },
 # }
 EXTERNAL_PLUGINS = {
-    # Testing if this works
-    "plugin_name": {
-        "main": "https://github.com/WigglyMuffin/SomethingNeedDoing/latest.zip", 
-        "testing": "https://github.com/WigglyMuffin/SomethingNeedDoing/testing/latest.zip",
-        "global": "https://github.com/WigglyMuffin/SomethingNeedDoing/global/latest.zip"
-    },
 }
 
 DUPLICATES = {
@@ -85,8 +79,29 @@ def download_external_plugins():
 
 
 def download_plugin(url, destination_path):
-    """Download a plugin from a URL and save it to the specified path."""
+    """Download a plugin from a URL and save it to the specified path only if newer."""
     try:
+        # Check if we already have this file
+        if destination_path.exists():
+            # Get the ETag or Last-Modified header to check if file has changed
+            head_response = requests.head(url)
+            head_response.raise_for_status()
+            
+            etag = head_response.headers.get('ETag')
+            last_modified = head_response.headers.get('Last-Modified')
+            
+            # Read previously saved metadata if it exists
+            metadata_file = destination_path.with_suffix('.meta')
+            if metadata_file.exists():
+                with open(metadata_file, 'r') as f:
+                    metadata = json.load(f)
+                    
+                # Skip download if ETag or Last-Modified matches
+                if (etag and metadata.get('ETag') == etag) or \
+                   (last_modified and metadata.get('Last-Modified') == last_modified):
+                    print(f"Skipping {url} - already up to date")
+                    return True
+        
         print(f"Downloading {url} to {destination_path}")
         response = requests.get(url, stream=True)
         response.raise_for_status()
@@ -103,7 +118,16 @@ def download_plugin(url, destination_path):
             print(f"Error: Downloaded file is not a valid ZIP: {e}")
             os.remove(destination_path)
             return False
-            
+        
+        # Save metadata for future comparisons
+        if 'ETag' in response.headers or 'Last-Modified' in response.headers:
+            metadata = {
+                'ETag': response.headers.get('ETag'),
+                'Last-Modified': response.headers.get('Last-Modified')
+            }
+            with open(destination_path.with_suffix('.meta'), 'w') as f:
+                json.dump(metadata, f)
+                
         return True
     except Exception as e:
         print(f"Error downloading {url}: {e}")

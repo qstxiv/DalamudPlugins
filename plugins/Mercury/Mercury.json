@@ -1,0 +1,27 @@
+{
+  "Author": "WigglyMuffin",
+  "Name": "Mercury's Eye",
+  "InternalName": "Mercury",
+  "AssemblyVersion": "1.0.0.0",
+  "Description": "A search plugin that allows searching through all world and data centers.",
+  "ApplicableVersion": "any",
+  "RepoUrl": "https://github.com/WigglyMuffin/MercurysEye",
+  "Tags": [
+    "players",
+    "search",
+    "utility"
+  ],
+  "CategoryTags": [
+    "Utility",
+    "Social"
+  ],
+  "DalamudApiLevel": 12,
+  "LoadRequiredState": 0,
+  "LoadSync": false,
+  "CanUnloadAsync": false,
+  "LoadPriority": 0,
+  "ImageUrls": [],
+  "IconUrl": "",
+  "Punchline": "Search across worlds and data centers",
+  "AcceptsFeedback": true
+}
