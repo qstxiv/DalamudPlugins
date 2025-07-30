@@ -5,20 +5,19 @@
         "Punchline": "Search across worlds and data centers",
         "Description": "A search plugin that allows searching through all world and data centers.",
         "Tags": [
-            "players",
             "search",
             "utility"
         ],
         "InternalName": "Mercury",
         "RepoUrl": "https://github.com/WigglyMuffin/MercurysEye",
-        "AssemblyVersion": "1.0.0.0",
+        "AssemblyVersion": "1.0.0.1",
         "ApplicableVersion": "any",
         "DalamudApiLevel": 12,
-        "IconUrl": "",
+        "IconUrl": "https://raw.githubusercontent.com/WigglyMuffin/MercurysEye/main/Images/icon.png",
         "ImageUrls": [],
         "DownloadLinkInstall": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Mercury/latest.zip",
         "DownloadLinkUpdate": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Mercury/latest.zip",
         "DownloadCount": 0,
-        "LastUpdate": "1753443768"
+        "LastUpdate": "1753886542"
     }
 ]
