@@ -2,7 +2,7 @@
   "Author": "WigglyMuffin",
   "Name": "Mercury's Eye",
   "InternalName": "Mercury",
-  "AssemblyVersion": "1.0.0.1",
+  "AssemblyVersion": "1.0.0.2",
   "Description": "A search plugin that allows searching through all world and data centers.",
   "ApplicableVersion": "any",
   "RepoUrl": "https://github.com/WigglyMuffin/MercurysEye",
