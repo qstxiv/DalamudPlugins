@@ -10,7 +10,7 @@
         ],
         "InternalName": "Mercury",
         "RepoUrl": "https://github.com/WigglyMuffin/MercurysEye",
-        "AssemblyVersion": "1.0.0.2",
+        "AssemblyVersion": "1.0.0.3",
         "ApplicableVersion": "any",
         "DalamudApiLevel": 12,
         "IconUrl": "https://raw.githubusercontent.com/WigglyMuffin/MercurysEye/main/Images/icon.png",
@@ -18,6 +18,6 @@
         "DownloadLinkInstall": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Mercury/latest.zip",
         "DownloadLinkUpdate": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Mercury/latest.zip",
         "DownloadCount": 0,
-        "LastUpdate": "1754220940"
+        "LastUpdate": "1754429156"
     }
 ]
