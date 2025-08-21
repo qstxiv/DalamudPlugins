@@ -15,7 +15,7 @@
   "LoadSync": false,
   "CanUnloadAsync": false,
   "LoadPriority": 0,
-  "IconUrl": "https://github.com/WigglyMuffin/DalamudPlugins/icons/Questionable.png",
+  "IconUrl": "https://raw.githubusercontent.com/WigglyMuffin/DalamudPlugins/main/icons/Questionable.png",
   "Punchline": "A tiny quest helper plugin.",
   "AcceptsFeedback": true
 }
