@@ -10,14 +10,34 @@
         ],
         "InternalName": "Mercury",
         "RepoUrl": "https://github.com/WigglyMuffin/MercurysEye",
-        "AssemblyVersion": "1.0.0.3",
+        "AssemblyVersion": "1.0.0.4",
         "ApplicableVersion": "any",
-        "DalamudApiLevel": 12,
+        "DalamudApiLevel": 13,
         "IconUrl": "https://raw.githubusercontent.com/WigglyMuffin/MercurysEye/main/Images/icon.png",
         "ImageUrls": [],
         "DownloadLinkInstall": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Mercury/latest.zip",
         "DownloadLinkUpdate": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Mercury/latest.zip",
         "DownloadCount": 0,
-        "LastUpdate": "1754429156"
+        "LastUpdate": "1755968063"
+    },
+    {
+        "Author": "Liza Carvelli, WigglyMuffin",
+        "Name": "Questionable",
+        "Punchline": "A tiny quest helper plugin.",
+        "Description": "A tiny little quest helper plugin, which does quests for you automatically where possible. Uses navmesh to automatically walk to all quest waypoints, and tries to automatically complete all steps along the way (excluding dungeons, single player duties and combat).\n\nNot all quests are supported, check the discord or git repository for an up-to-date list.\n\nRequired Plugins: vnavmesh, TextAdvance, Lifestream",
+        "Tags": [
+            "quests",
+            "msq"
+        ],
+        "InternalName": "Questionable",
+        "RepoUrl": "https://github.com/WigglyMuffin/Questionable",
+        "AssemblyVersion": "6.5",
+        "ApplicableVersion": "any",
+        "DalamudApiLevel": 13,
+        "IconUrl": "https://raw.githubusercontent.com/WigglyMuffin/DalamudPlugins/main/icons/Questionable.png",
+        "DownloadLinkInstall": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Questionable/latest.zip",
+        "DownloadLinkUpdate": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Questionable/latest.zip",
+        "DownloadCount": 0,
+        "LastUpdate": "1755968063"
     }
 ]
