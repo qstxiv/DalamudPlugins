@@ -53,6 +53,10 @@ def main():
     master = extract_manifests()
     master = [trim_manifest(manifest) for manifest in master]
     add_extra_fields(master)
+    
+    # Update download counts from GitHub
+    update_download_counts(master)
+    
     write_master(master)
     last_update()
 
@@ -170,14 +174,14 @@ def extract_manifests():
                     global_manifest = json.loads(
                         gz.read(f"{plugin_name}.json").decode("utf-8")
                     )
-                    global_manifest["Name"] = f"{global_manifest['Name']} (API12)"
+                    global_manifest["Name"] = f"{global_manifest['Name']} (API13)"
                     manifests.append(global_manifest)
     return manifests
 
 
 def add_extra_fields(manifests):
     for manifest in manifests:
-        is_global = manifest["Name"].endswith("(API12)")
+        is_global = manifest["Name"].endswith("(API13)")
 
         if is_global:
             manifest["DownloadLinkInstall"] = GLOBAL_DOWNLOAD_URL.format(
@@ -200,6 +204,62 @@ def add_extra_fields(manifests):
             )
 
         manifest["DownloadCount"] = 0
+
+
+def update_download_counts(manifests):
+    """Update download counts for plugins by fetching data from GitHub releases."""
+    github_token = os.environ.get("GITHUB_TOKEN")
+    headers = {}
+    if github_token:
+        headers["Authorization"] = f"token {github_token}"
+    
+    # Cache to avoid multiple API calls for the same repo
+    repo_cache = {}
+    
+    for manifest in manifests:
+        try:
+            repo_url = manifest.get("RepoUrl", "")
+            if not repo_url or "github.com" not in repo_url:
+                continue
+                
+            # Extract owner/repo from GitHub URL
+            # Format: https://github.com/owner/repo
+            repo_path = repo_url.replace("https://github.com/", "").rstrip("/")
+            if "/" not in repo_path:
+                continue
+                
+            owner, repo = repo_path.split("/", 1)
+            repo_key = f"{owner}/{repo}"
+            
+            # Use cached data if available
+            if repo_key in repo_cache:
+                total_downloads = repo_cache[repo_key]
+            else:
+                # Fetch release data from GitHub API
+                api_url = f"https://api.github.com/repos/{owner}/{repo}/releases"
+                print(f"Fetching download counts for {repo_key}")
+                
+                response = requests.get(api_url, headers=headers)
+                response.raise_for_status()
+                
+                releases = response.json()
+                total_downloads = 0
+                
+                # Sum up download counts from all releases
+                for release in releases:
+                    for asset in release.get("assets", []):
+                        total_downloads += asset.get("download_count", 0)
+                
+                repo_cache[repo_key] = total_downloads
+            
+            manifest["DownloadCount"] = total_downloads
+            print(f"Updated {manifest['InternalName']}: {total_downloads} downloads")
+            
+        except Exception as e:
+            print(f"Error fetching download count for {manifest.get('InternalName', 'unknown')}: {e}")
+            # Keep existing download count or set to 0
+            if "DownloadCount" not in manifest:
+                manifest["DownloadCount"] = 0
 
 
 def write_master(master):
