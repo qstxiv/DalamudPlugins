@@ -264,9 +264,27 @@ class DownloadCountUpdater:
             print(f"Fetching download counts for {owner}/{repo}")
             
             response = requests.get(api_url, headers=self.headers)
+            
+            # Handle different HTTP status codes
+            if response.status_code == 404:
+                print(f"Repository {owner}/{repo} not found or is private - skipping download count")
+                return 0
+            elif response.status_code == 403:
+                print(f"Access forbidden for {owner}/{repo} (rate limited or private) - skipping download count")
+                return 0
+            elif response.status_code == 401:
+                print(f"Authentication required for {owner}/{repo} - skipping download count")
+                return 0
+            
             response.raise_for_status()
             
             releases = response.json()
+            
+            # Handle case where repository has no releases
+            if not releases:
+                print(f"Repository {owner}/{repo} has no releases")
+                return 0
+            
             total_downloads = 0
             
             for release in releases:
@@ -275,8 +293,11 @@ class DownloadCountUpdater:
             
             return total_downloads
 
+        except requests.exceptions.RequestException as e:
+            print(f"Network error fetching download count for {owner}/{repo}: {e}")
+            return 0
         except Exception as e:
-            print(f"Error fetching download count for {owner}/{repo}: {e}")
+            print(f"Unexpected error fetching download count for {owner}/{repo}: {e}")
             return 0
 
 
