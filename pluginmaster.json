@@ -18,7 +18,7 @@
         "DownloadLinkInstall": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Mercury/latest.zip",
         "DownloadLinkUpdate": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Mercury/latest.zip",
         "DownloadCount": 0,
-        "LastUpdate": "1754478827"
+        "LastUpdate": "1756171787"
     },
     {
         "Author": "Liza Carvelli, WigglyMuffin",
@@ -37,7 +37,7 @@
         "IconUrl": "https://raw.githubusercontent.com/WigglyMuffin/DalamudPlugins/main/icons/Questionable.png",
         "DownloadLinkInstall": "https://github.com/WigglyMuffin/Questionable/releases/download/v6.6/Questionable-6.6.zip",
         "DownloadLinkUpdate": "https://github.com/WigglyMuffin/Questionable/releases/download/v6.6/Questionable-6.6.zip",
-        "DownloadCount": 0,
-        "LastUpdate": "1756150601"
+        "DownloadCount": 1,
+        "LastUpdate": "1756171787"
     }
 ]
