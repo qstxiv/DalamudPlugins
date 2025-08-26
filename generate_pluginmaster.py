@@ -105,11 +105,20 @@ class PluginProcessor:
         is_global = manifest["Name"].endswith("(API13)")
         plugin_name = manifest["InternalName"]
         
-        # Set main download link
-        url_key = "global" if is_global else "main"
-        manifest["DownloadLinkInstall"] = self.config.download_urls[url_key].format(
-            branch=self.config.branch, plugin_name=plugin_name
-        )
+        # Check if plugin repository has releases and prefer those
+        repo_download_url = self._get_repo_download_url(manifest)
+        
+        if repo_download_url:
+            # Use repository releases for download links
+            manifest["DownloadLinkInstall"] = repo_download_url
+            print(f"Using repository releases for {plugin_name}: {repo_download_url}")
+        else:
+            # Fallback to local files
+            url_key = "global" if is_global else "main"
+            manifest["DownloadLinkInstall"] = self.config.download_urls[url_key].format(
+                branch=self.config.branch, plugin_name=plugin_name
+            )
+            print(f"Using local files for {plugin_name}")
 
         # Add testing download link if testing version exists
         if "TestingAssemblyVersion" in manifest and not is_global:
@@ -125,6 +134,48 @@ class PluginProcessor:
 
         # Initialize download count
         manifest["DownloadCount"] = 0
+
+    def _get_repo_download_url(self, manifest: Dict[str, Any]) -> Optional[str]:
+        """Get download URL from repository releases if available."""
+        try:
+            repo_url = manifest.get("RepoUrl", "")
+            if not repo_url or "github.com" not in repo_url:
+                return None
+
+            # Parse GitHub URL
+            repo_path = repo_url.replace("https://github.com/", "").rstrip("/")
+            if "/" not in repo_path:
+                return None
+
+            owner, repo = repo_path.split("/", 1)
+            
+            # Check if repository has releases
+            api_url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
+            response = requests.get(api_url)
+            
+            if response.status_code == 200:
+                release_data = response.json()
+                
+                # Look for the plugin ZIP file in assets
+                plugin_name = manifest["InternalName"]
+                for asset in release_data.get("assets", []):
+                    asset_name = asset.get("name", "")
+                    # Match files like "PluginName.zip" or "PluginName-version.zip"
+                    if (asset_name.endswith(".zip") and 
+                        (asset_name.startswith(f"{plugin_name}.") or 
+                         asset_name.startswith(f"{plugin_name}-"))):
+                        return asset.get("browser_download_url")
+                
+                # If no specific match, try to find any ZIP file
+                for asset in release_data.get("assets", []):
+                    if asset.get("name", "").endswith(".zip"):
+                        return asset.get("browser_download_url")
+
+            return None
+
+        except Exception as e:
+            print(f"Error checking repository releases for {manifest.get('InternalName', 'unknown')}: {e}")
+            return None
 
 
 class ExternalPluginManager:
