@@ -170,21 +170,22 @@ class PluginProcessor:
                         preferred_asset_name = asset_name
                         break
                 
-                # Priority 2: Look for exact plugin name match "PluginName.zip"
-                if not preferred_asset_name:
-                    for asset in assets:
-                        asset_name = asset.get("name", "")
-                        if asset_name == f"{plugin_name}.zip":
-                            preferred_asset_name = asset_name
-                            break
-                
-                # Priority 3: Look for versioned files like "PluginName-version.zip"
+                # Priority 2: Look for versioned files like "PluginName-version.zip"
                 if not preferred_asset_name:
                     for asset in assets:
                         asset_name = asset.get("name", "")
                         if (asset_name.endswith(".zip") and 
                             asset_name.startswith(f"{plugin_name}-") and 
                             not asset_name.endswith("-latest.zip")):
+                            preferred_asset_name = asset_name
+                            break
+                
+                                
+                # Priority 3: Look for exact plugin name match "PluginName.zip"
+                if not preferred_asset_name:
+                    for asset in assets:
+                        asset_name = asset.get("name", "")
+                        if asset_name == f"{plugin_name}.zip":
                             preferred_asset_name = asset_name
                             break
                 
