@@ -3,7 +3,7 @@ import os
 import requests
 from pathlib import Path
 from zipfile import ZipFile
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, asdict
 
 
@@ -247,7 +247,7 @@ class DownloadCountUpdater:
             except Exception as e:
                 print(f"Error updating download count for {manifest.get('InternalName', 'unknown')}: {e}")
 
-    def _parse_github_url(self, url: str) -> tuple[Optional[str], Optional[str]]:
+    def _parse_github_url(self, url: str) -> Tuple[Optional[str], Optional[str]]:
         """Parse GitHub URL to extract owner and repo."""
         try:
             repo_path = url.replace("https://github.com/", "").rstrip("/")
