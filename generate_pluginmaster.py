@@ -156,19 +156,34 @@ class PluginProcessor:
             if response.status_code == 200:
                 release_data = response.json()
                 
-                # Look for the plugin ZIP file in assets
+                # Look for the plugin ZIP file in assets with priority order
                 plugin_name = manifest["InternalName"]
-                for asset in release_data.get("assets", []):
+                assets = release_data.get("assets", [])
+                
+                # Priority 1: Look for "latest.zip" (exact match)
+                for asset in assets:
                     asset_name = asset.get("name", "")
-                    # Match files like "PluginName.zip" or "PluginName-version.zip"
-                    if (asset_name.endswith(".zip") and 
-                        (asset_name.startswith(f"{plugin_name}.") or 
-                         asset_name.startswith(f"{plugin_name}-"))):
+                    if asset_name == "latest.zip":
                         return asset.get("browser_download_url")
                 
-                # If no specific match, try to find any ZIP file
-                for asset in release_data.get("assets", []):
-                    if asset.get("name", "").endswith(".zip"):
+                # Priority 2: Look for exact plugin name match "PluginName.zip"
+                for asset in assets:
+                    asset_name = asset.get("name", "")
+                    if asset_name == f"{plugin_name}.zip":
+                        return asset.get("browser_download_url")
+                
+                # Priority 3: Look for versioned files like "PluginName-version.zip"
+                for asset in assets:
+                    asset_name = asset.get("name", "")
+                    if (asset_name.endswith(".zip") and 
+                        asset_name.startswith(f"{plugin_name}-") and 
+                        not asset_name.endswith("-latest.zip")):
+                        return asset.get("browser_download_url")
+                
+                # Priority 4: Fall back to any ZIP file
+                for asset in assets:
+                    asset_name = asset.get("name", "")
+                    if asset_name.endswith(".zip"):
                         return asset.get("browser_download_url")
 
             return None
