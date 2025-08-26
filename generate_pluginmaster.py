@@ -160,31 +160,47 @@ class PluginProcessor:
                 plugin_name = manifest["InternalName"]
                 assets = release_data.get("assets", [])
                 
+                # Find the preferred asset name, then construct stable URL
+                preferred_asset_name = None
+                
                 # Priority 1: Look for "latest.zip" (exact match)
                 for asset in assets:
                     asset_name = asset.get("name", "")
                     if asset_name == "latest.zip":
-                        return asset.get("browser_download_url")
+                        preferred_asset_name = asset_name
+                        break
                 
                 # Priority 2: Look for exact plugin name match "PluginName.zip"
-                for asset in assets:
-                    asset_name = asset.get("name", "")
-                    if asset_name == f"{plugin_name}.zip":
-                        return asset.get("browser_download_url")
+                if not preferred_asset_name:
+                    for asset in assets:
+                        asset_name = asset.get("name", "")
+                        if asset_name == f"{plugin_name}.zip":
+                            preferred_asset_name = asset_name
+                            break
                 
                 # Priority 3: Look for versioned files like "PluginName-version.zip"
-                for asset in assets:
-                    asset_name = asset.get("name", "")
-                    if (asset_name.endswith(".zip") and 
-                        asset_name.startswith(f"{plugin_name}-") and 
-                        not asset_name.endswith("-latest.zip")):
-                        return asset.get("browser_download_url")
+                if not preferred_asset_name:
+                    for asset in assets:
+                        asset_name = asset.get("name", "")
+                        if (asset_name.endswith(".zip") and 
+                            asset_name.startswith(f"{plugin_name}-") and 
+                            not asset_name.endswith("-latest.zip")):
+                            preferred_asset_name = asset_name
+                            break
                 
                 # Priority 4: Fall back to any ZIP file
-                for asset in assets:
-                    asset_name = asset.get("name", "")
-                    if asset_name.endswith(".zip"):
-                        return asset.get("browser_download_url")
+                if not preferred_asset_name:
+                    for asset in assets:
+                        asset_name = asset.get("name", "")
+                        if asset_name.endswith(".zip"):
+                            preferred_asset_name = asset_name
+                            break
+                
+                # If we found a preferred asset, return stable latest release URL
+                if preferred_asset_name:
+                    # Use GitHub's latest release download URL pattern that always points to latest
+                    stable_url = f"https://github.com/{owner}/{repo}/releases/latest/download/{preferred_asset_name}"
+                    return stable_url
 
             return None
 

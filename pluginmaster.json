@@ -35,8 +35,8 @@
         "ApplicableVersion": "any",
         "DalamudApiLevel": 13,
         "IconUrl": "https://raw.githubusercontent.com/WigglyMuffin/DalamudPlugins/main/icons/Questionable.png",
-        "DownloadLinkInstall": "https://github.com/WigglyMuffin/Questionable/releases/download/v6.6/latest.zip",
-        "DownloadLinkUpdate": "https://github.com/WigglyMuffin/Questionable/releases/download/v6.6/latest.zip",
+        "DownloadLinkInstall": "https://github.com/WigglyMuffin/Questionable/releases/latest/download/latest.zip",
+        "DownloadLinkUpdate": "https://github.com/WigglyMuffin/Questionable/releases/latest/download/latest.zip",
         "DownloadCount": 0,
         "LastUpdate": "1756150601"
     }
