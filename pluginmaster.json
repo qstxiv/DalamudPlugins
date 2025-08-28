@@ -17,7 +17,7 @@
         "DownloadLinkInstall": "https://github.com/WigglyMuffin/Questionable/releases/latest/download/latest.zip",
         "DownloadLinkUpdate": "https://github.com/WigglyMuffin/Questionable/releases/latest/download/latest.zip",
         "DownloadCount": 30,
-        "LastUpdate": "1756343957"
+        "LastUpdate": "1756344034"
     },
     {
         "Author": "WigglyMuffin",
@@ -38,6 +38,6 @@
         "DownloadLinkInstall": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Mercury/latest.zip",
         "DownloadLinkUpdate": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Mercury/latest.zip",
         "DownloadCount": 0,
-        "LastUpdate": "1756343947"
+        "LastUpdate": "1756344025"
     }
 ]
