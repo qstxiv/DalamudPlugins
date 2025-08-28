@@ -372,7 +372,6 @@ class ExternalPluginManager:
     def _download_if_needed(self, url: str, dest_path: Path) -> bool:
         """Download file only if it's newer than local copy."""
         try:
-            # Check if we should skip download based on metadata
             if self._is_up_to_date(url, dest_path):
                 print(f"Skipping {url} - already up to date")
                 return True
@@ -564,15 +563,12 @@ class PluginMasterGenerator:
         for manifest in repo_manifests:
             plugin_name = manifest.get("InternalName")
             if plugin_name:
-                # Check if local version exists for comparison
                 local_manifest = self._get_local_manifest(plugin_name)
                 
                 if local_manifest:
-                    # Compare versions and choose the better one
                     chosen_manifest = self._choose_better_manifest(repo_manifest=manifest, local_manifest=local_manifest, plugin_name=plugin_name)
                     manifests.append(chosen_manifest)
                 else:
-                    # No local version, use repository version
                     print(f"Using repository version for {plugin_name} (no local version found)")
                     manifests.append(manifest)
 
@@ -621,17 +617,14 @@ class PluginMasterGenerator:
 
         print(f"Comparing versions for {plugin_name}: repo={repo_version}, local={local_version}")
 
-        # If versions are the same, prioritise repository
         if repo_version == local_version:
             print(f"Versions are equal for {plugin_name}, prioritising repository version")
             return repo_manifest
 
-        # Compare versions
         try:
             repo_parts = [int(x) for x in repo_version.split('.')]
             local_parts = [int(x) for x in local_version.split('.')]
 
-            # Pad shorter version with zeros
             max_len = max(len(repo_parts), len(local_parts))
             repo_parts.extend([0] * (max_len - len(repo_parts)))
             local_parts.extend([0] * (max_len - len(local_parts)))
@@ -644,7 +637,6 @@ class PluginMasterGenerator:
                 return local_manifest
 
         except ValueError:
-            # If version parsing fails, prioritise repository
             print(f"Could not parse versions for {plugin_name}, prioritising repository")
             return repo_manifest
 
@@ -658,23 +650,17 @@ class PluginMasterGenerator:
         for manifest in manifests:
             try:
                 plugin_name = manifest["InternalName"]
-                
-                # Check if this is a repository-sourced plugin
+
                 if manifest.get("_repository_source"):
-                    # Repository plugins already have LastUpdate from release date
-                    # Remove the temporary marker
                     del manifest["_repository_source"]
                     if "LastUpdate" not in manifest:
-                        # Fallback: try to get timestamp from local file
                         self._set_local_timestamp(manifest, plugin_name)
                 else:
-                    # Local plugin - use file modification time
                     self._set_local_timestamp(manifest, plugin_name)
-                    
+
             except Exception as e:
                 print(f"Error updating last modified time for {manifest.get('InternalName', 'unknown')}: {e}")
 
-        # Rewrite the file with updated timestamps
         self._write_plugin_master(manifests)
 
     def _set_local_timestamp(self, manifest: Dict[str, Any], plugin_name: str) -> None:
@@ -690,7 +676,6 @@ class PluginMasterGenerator:
             modified_time = str(int(zip_path.stat().st_mtime))
             manifest["LastUpdate"] = modified_time
         else:
-            # If no local file exists, set a default timestamp
             import time
             manifest["LastUpdate"] = str(int(time.time()))
 
