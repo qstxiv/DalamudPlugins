@@ -249,7 +249,18 @@ class RepositoryPluginProcessor:
                 return None
 
             release_data = response.json()
-            
+
+            release_date = release_data.get("published_at")
+            if release_date:
+                from datetime import datetime
+                try:
+                    dt = datetime.fromisoformat(release_date.replace('Z', '+00:00'))
+                    release_timestamp = str(int(dt.timestamp()))
+                except Exception:
+                    release_timestamp = None
+            else:
+                release_timestamp = None
+
             plugin_zip_url = self._find_plugin_asset(release_data, plugin_name)
             if not plugin_zip_url:
                 print(f"No suitable ZIP asset found for {plugin_name} in {owner}/{repo}")
@@ -258,6 +269,9 @@ class RepositoryPluginProcessor:
             manifest = self._extract_manifest_from_url(plugin_zip_url, plugin_name)
             if manifest:
                 manifest["RepoUrl"] = repo_url
+                manifest["_repository_source"] = True
+                if release_timestamp:
+                    manifest["LastUpdate"] = release_timestamp
                 print(f"Successfully extracted manifest for {plugin_name} v{manifest.get('AssemblyVersion', 'unknown')}")
                 return manifest
 
@@ -640,26 +654,45 @@ class PluginMasterGenerator:
             json.dump(manifests, f, indent=4, ensure_ascii=False)
 
     def _update_last_modified(self, manifests: List[Dict[str, Any]]) -> None:
-        """Update LastUpdate timestamps based on file modification times."""
+        """Update LastUpdate timestamps based on file modification times or repository release dates."""
         for manifest in manifests:
             try:
                 plugin_name = manifest["InternalName"]
-                is_global = manifest["Name"].endswith("(API13)")
-
-                if is_global:
-                    zip_path = self.config.plugins_dir / plugin_name / "global" / "latest.zip"
+                
+                # Check if this is a repository-sourced plugin
+                if manifest.get("_repository_source"):
+                    # Repository plugins already have LastUpdate from release date
+                    # Remove the temporary marker
+                    del manifest["_repository_source"]
+                    if "LastUpdate" not in manifest:
+                        # Fallback: try to get timestamp from local file
+                        self._set_local_timestamp(manifest, plugin_name)
                 else:
-                    zip_path = self.config.plugins_dir / plugin_name / "latest.zip"
-
-                if zip_path.exists():
-                    modified_time = str(int(zip_path.stat().st_mtime))
-                    manifest["LastUpdate"] = modified_time
-
+                    # Local plugin - use file modification time
+                    self._set_local_timestamp(manifest, plugin_name)
+                    
             except Exception as e:
                 print(f"Error updating last modified time for {manifest.get('InternalName', 'unknown')}: {e}")
 
         # Rewrite the file with updated timestamps
         self._write_plugin_master(manifests)
+
+    def _set_local_timestamp(self, manifest: Dict[str, Any], plugin_name: str) -> None:
+        """Set timestamp from local file modification time."""
+        is_global = manifest["Name"].endswith("(API13)")
+        
+        if is_global:
+            zip_path = self.config.plugins_dir / plugin_name / "global" / "latest.zip"
+        else:
+            zip_path = self.config.plugins_dir / plugin_name / "latest.zip"
+
+        if zip_path.exists():
+            modified_time = str(int(zip_path.stat().st_mtime))
+            manifest["LastUpdate"] = modified_time
+        else:
+            # If no local file exists, set a default timestamp
+            import time
+            manifest["LastUpdate"] = str(int(time.time()))
 
 
 def main():
