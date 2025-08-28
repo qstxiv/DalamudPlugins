@@ -28,6 +28,7 @@ class Config:
         repository_list = {
             "Mercury": "https://github.com/WigglyMuffin/MercurysEye",
             "Questionable": "https://github.com/WigglyMuffin/Questionable",
+            "Influx": "https://github.com/WigglyMuffin/Influx",
         }
 
         return cls(
