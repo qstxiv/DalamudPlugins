@@ -16,8 +16,8 @@
         "IconUrl": "https://raw.githubusercontent.com/WigglyMuffin/DalamudPlugins/main/icons/Questionable.png",
         "DownloadLinkInstall": "https://github.com/WigglyMuffin/Questionable/releases/latest/download/latest.zip",
         "DownloadLinkUpdate": "https://github.com/WigglyMuffin/Questionable/releases/latest/download/latest.zip",
-        "DownloadCount": 44,
-        "LastUpdate": "1756427082"
+        "DownloadCount": 45,
+        "LastUpdate": "1756428882"
     },
     {
         "Author": "Liza Carvelli, WigglyMuffin",
@@ -32,28 +32,7 @@
         "IconUrl": "https://raw.githubusercontent.com/WigglyMuffin/DalamudPlugins/main/icons/Influx.png",
         "DownloadLinkInstall": "https://github.com/WigglyMuffin/Influx/releases/latest/download/latest.zip",
         "DownloadLinkUpdate": "https://github.com/WigglyMuffin/Influx/releases/latest/download/latest.zip",
-        "DownloadCount": 6,
-        "LastUpdate": "1756427082"
-    },
-    {
-        "Author": "WigglyMuffin",
-        "Name": "Mercury's Eye",
-        "Punchline": "Search across worlds and data centers",
-        "Description": "A search plugin that allows searching through all world and data centers.",
-        "Tags": [
-            "search",
-            "utility"
-        ],
-        "InternalName": "Mercury",
-        "RepoUrl": "https://github.com/WigglyMuffin/MercurysEye",
-        "AssemblyVersion": "1.0.0.4",
-        "ApplicableVersion": "any",
-        "DalamudApiLevel": 13,
-        "IconUrl": "https://raw.githubusercontent.com/WigglyMuffin/MercurysEye/main/Images/icon.png",
-        "ImageUrls": [],
-        "DownloadLinkInstall": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Mercury/latest.zip",
-        "DownloadLinkUpdate": "https://github.com/WigglyMuffin/DalamudPlugins/raw/main/plugins/Mercury/latest.zip",
-        "DownloadCount": 0,
-        "LastUpdate": "1756427070"
+        "DownloadCount": 7,
+        "LastUpdate": "1756428882"
     }
 ]
