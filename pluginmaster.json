@@ -1,1 +1,22 @@
-[]
+[
+    {
+        "Author": "Liza Carvelli and various contributors",
+        "Name": "QST Testing",
+        "Punchline": "A tiny quest helper plugin.",
+        "Description": "A tiny little quest helper plugin, which does quests for you automatically where possible. Uses navmesh to automatically walk to all quest waypoints, and tries to automatically complete all steps along the way (excluding dungeons, single player duties and combat).\n\nNot all quests are supported, check the discord or git repository for an up-to-date list.\n\nRequired Plugins: vnavmesh, TextAdvance, Lifestream",
+        "Tags": [
+            "quests",
+            "msq"
+        ],
+        "InternalName": "Questionable",
+        "RepoUrl": "https://github.com/qstxiv/Questionable",
+        "AssemblyVersion": "6.5.0.1",
+        "ApplicableVersion": "any",
+        "DalamudApiLevel": 13,
+        "IconUrl": "https://qstxiv.github.io/icons/Questionable.png",
+        "DownloadLinkInstall": "https://github.com/qstxiv/Questionable/releases/latest/download/latest.zip",
+        "DownloadLinkUpdate": "https://github.com/qstxiv/Questionable/releases/latest/download/latest.zip",
+        "DownloadCount": 1,
+        "LastUpdate": "1757212872"
+    }
+]
