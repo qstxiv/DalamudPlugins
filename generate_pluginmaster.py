@@ -23,12 +23,10 @@ class Config:
     def load_default(cls) -> 'Config':
         """Load default configuration."""
         branch = os.environ.get("GITHUB_REF", "main").split("refs/heads/")[-1]
-        base_url = "https://github.com/WigglyMuffin/DalamudPlugins/raw/{branch}/plugins/{plugin_name}"
+        base_url = "https://github.com/qstxiv/DalamudPlugins/raw/{branch}/plugins/{plugin_name}"
 
         repository_list = {
-            "Mercury": "https://github.com/WigglyMuffin/MercurysEye",
-            "Questionable": "https://github.com/WigglyMuffin/Questionable",
-            "Influx": "https://github.com/WigglyMuffin/Influx",
+            "Questionable": "https://github.com/qstxiv/Questionable"
         }
 
         return cls(
