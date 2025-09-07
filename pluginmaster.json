@@ -1,6 +1,6 @@
 [
     {
-        "Author": "Liza Carvelli, WigglyMuffin",
+        "Author": "Liza Carvelli",
         "Name": "Questionable",
         "Punchline": "A tiny quest helper plugin.",
         "Description": "A tiny little quest helper plugin, which does quests for you automatically where possible. Uses navmesh to automatically walk to all quest waypoints, and tries to automatically complete all steps along the way (excluding dungeons, single player duties and combat).\n\nNot all quests are supported, check the discord or git repository for an up-to-date list.\n\nRequired Plugins: vnavmesh, TextAdvance, Lifestream",
@@ -9,30 +9,14 @@
             "msq"
         ],
         "InternalName": "Questionable",
-        "RepoUrl": "https://github.com/WigglyMuffin/Questionable",
-        "AssemblyVersion": "6.8",
+        "RepoUrl": "https://github.com/qstxiv/Questionable",
+        "AssemblyVersion": "6.5.0.1",
         "ApplicableVersion": "any",
         "DalamudApiLevel": 13,
-        "IconUrl": "https://raw.githubusercontent.com/WigglyMuffin/DalamudPlugins/main/icons/Questionable.png",
-        "DownloadLinkInstall": "https://github.com/WigglyMuffin/Questionable/releases/latest/download/latest.zip",
-        "DownloadLinkUpdate": "https://github.com/WigglyMuffin/Questionable/releases/latest/download/latest.zip",
-        "DownloadCount": 163,
-        "LastUpdate": "1757204760"
-    },
-    {
-        "Author": "Liza Carvelli, WigglyMuffin",
-        "Name": "Influx",
-        "Punchline": "Sync game stats to InfluxDB or QuestDB",
-        "Description": "Uploads your game statistics (such as quest progress, gil, retainer stats) to an InfluxDB or QuestDB instance, making it possible to automatically track your progress through external tools such as Grafana.",
-        "InternalName": "Influx",
-        "RepoUrl": "https://github.com/WigglyMuffin/Influx",
-        "AssemblyVersion": "5.1",
-        "ApplicableVersion": "any",
-        "DalamudApiLevel": 13,
-        "IconUrl": "https://raw.githubusercontent.com/WigglyMuffin/DalamudPlugins/main/icons/Influx.png",
-        "DownloadLinkInstall": "https://github.com/WigglyMuffin/Influx/releases/latest/download/latest.zip",
-        "DownloadLinkUpdate": "https://github.com/WigglyMuffin/Influx/releases/latest/download/latest.zip",
-        "DownloadCount": 46,
-        "LastUpdate": "1757204760"
+        "IconUrl": "https://qstxiv.github.io/icons/Questionable.png",
+        "DownloadLinkInstall": "https://github.com/qstxiv/Questionable/releases/latest/download/testing.zip",
+        "DownloadLinkUpdate": "https://github.com/qstxiv/Questionable/releases/latest/download/testing.zip",
+        "DownloadCount": 0,
+        "LastUpdate": "1757211491"
     }
 ]
